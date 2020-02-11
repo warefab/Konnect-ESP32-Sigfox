@@ -1,3 +1,10 @@
+/*
+ * 3 Axis Accelerometer demo
+ * Konnnect esp32-sigfox
+ * 
+ * @author https://www.warefab.com
+*/
+
 #include <Wire.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
