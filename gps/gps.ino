@@ -50,12 +50,14 @@ void displayInfo()
 {
   display.setCursor(0,10);
   display.clearDisplay();
-  display.println("GPS DATA");
+  display.println(" GPS DATA");
   display.print(F("TM:"));
+  //time data
   if (gps.time.isValid())
   {
     if (gps.time.hour() < 10) display.print(F("0"));
-    display.print(gps.time.hour() + 3);
+    uint8_t t_ = gps.time.hour() + 3;
+    display.print(t_);
     display.print(F(":"));
     if (gps.time.minute() < 10) display.print(F("0"));
     display.print(gps.time.minute());
@@ -63,12 +65,12 @@ void displayInfo()
     if (gps.time.second() < 10) display.print(F("0"));
     display.println(gps.time.second());
   }
-
-  display.print(F("LT: "));
+  //location data
   if (gps.location.isValid())
   {
+    display.print(F("LT: "));
     display.println(gps.location.lat(), 6);
-    display.print(F(","));
+    display.print(F("LN:"));
     display.print(gps.location.lng(), 6);
   }
   display.display();
