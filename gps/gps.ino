@@ -28,7 +28,6 @@ void setup() {
   display.setTextSize(1);
   display.setFont(&FreeMonoBold9pt7b);
   display.setTextColor(WHITE);
-  
 }
 
 void loop() {
@@ -52,7 +51,7 @@ void displayInfo()
   display.setCursor(0,10);
   display.clearDisplay();
   display.println("GPS DATA");
-  display.print(F("  TM: "));
+  display.print(F("TM:"));
   if (gps.time.isValid())
   {
     if (gps.time.hour() < 10) display.print(F("0"));
