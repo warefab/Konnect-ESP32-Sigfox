@@ -23,6 +23,13 @@ void setup() {
   display.begin(SSD1306_SWITCHCAPVCC, 0x3c);
   display.setTextSize(1);
   display.setFont(&FreeMonoBold9pt7b);
+  display.setTextColor(WHITE);
+  display.setCursor(0,10);
+  display.clearDisplay();
+  display.println("  BUZZER");
+  display.println();
+  display.println("TONE DEMO");
+  display.display();
 }
 
 void loop() {
