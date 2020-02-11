@@ -23,7 +23,6 @@ Adafruit_SSD1306 display(-1);
 void setup()
 {
   Wire.begin();
-  Serial.begin(115200);
   display.begin(SSD1306_SWITCHCAPVCC, 0x3c);
   display.setTextSize(1);
   display.setFont(&FreeMonoBold9pt7b);
