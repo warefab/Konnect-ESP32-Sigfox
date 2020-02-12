@@ -124,28 +124,45 @@ void sendSigfoxPacket() {
   }
 
   //send readable data to debug port else to wisol module
-  if (sigfox_delay < 40) {
+  if (sigfox_delay < 120) {
     gps.dateTimeFormat(time, gps.g_time, ':');
     gps.dateTimeFormat(date, gps.g_date, '-');
     gps_ns = (gps.lat_ns == 0) ? ' ' : gps.lat_ns;
     gps_ew = (gps.lng_ew == 0) ? ' ' : gps.lng_ew;
+
+    display.setCursor(0, 2);
+    display.clearDisplay();
+
     //mic and ldr
-    sprintf(buffer, "\n\rMIC: %04d, LDR : %04d", mic_val, ldr_output);
+    sprintf(buffer, "\n\rMIC:%04d, LDR:%04d", mic_val, ldr_output);
+    display.println(buffer);
     Serial.println(buffer);
 
     //SHT30
-    sprintf(buffer, "SHT30 -> C : %d, F : %d, H : %d", cTemp, fTemp, humidity);
+    sprintf(buffer, "T/H = C:%d, H:%d", cTemp, fTemp, humidity);
+    display.println(buffer);
     Serial.println(buffer);
 
     //LIS2DH12
-    sprintf(buffer, "LIS2DH12 -> X: %03d,  Y: %03d, Z: %0d", acc.x, acc.y, acc.z);
+    sprintf(buffer, "ACC =  X:%03d, Y:%03d, Z:%0d", acc.x, acc.y, acc.z);
+    display.println(buffer);
     Serial.println(buffer);
 
     //L70R
+    float lat = (float)(gps.lat / 100000.0);
+    float lng = (float)(gps.lng / 100000.0);
+    display.print("GPS:");
+    display.print(lat, 5);
+    display.println(gps_ns);
+    //longitude
+    display.print(", ");
+    display.print(lng, 5);
+    display.println(gps_ew);
     sprintf(buffer,
-            "L70R -> TIME: %s,  LAT: %.5f%c, LNG : %.5f%c, SPEED : %d, DATE : %s",
-            time, (float) (gps.lat / 100000.0), gps_ns,
-            (float) (gps.lng / 100000.0), gps_ew, gps.speed, date);
+            "GPS = TIME: %s,  LAT: %.5f%c, LNG : %.5f%c, SPEED : %d, DATE : %s",
+            time, lat, gps_ns, lng, gps_ew, gps.speed, date);
+    //log
+    display.display();
     Serial.println(buffer);
     sigfox_delay++;
   } else {
