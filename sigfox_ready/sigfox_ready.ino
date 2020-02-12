@@ -139,7 +139,7 @@ void sendSigfoxPacket() {
     Serial.println(buffer);
 
     //SHT30
-    sprintf(buffer, "T/H = C:%d, H:%d", cTemp, fTemp, humidity);
+    sprintf(buffer, "T/H = C:%d, H:%d", cTemp, humidity);
     display.println(buffer);
     Serial.println(buffer);
 
