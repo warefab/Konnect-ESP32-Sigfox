@@ -1,3 +1,10 @@
+/*
+   Test sigfox
+   Konnect ESP32-Sigfox dev board
+
+   @author @author https://www.warefab.com
+*/
+
 #define RXD1 14
 #define TXD1 27
 
@@ -12,7 +19,7 @@ uint8_t msg[12] = "warefab";
 const char *at_messages[] = {"AT$I=0", "AT$I=10", "AT$I=11", "AT$SF="};
 //char packet[] = "01c9a838321e2e01091b3046";
 
-const unsigned long int msg_delay = 20000;
+const unsigned long int msg_delay = 40000;
 unsigned long int prev_time = 0;
 
 void setup() {
