@@ -46,7 +46,7 @@ uint8_t cTemp = 0;
 uint8_t fTemp = 0;
 uint8_t humidity = 0;
 
-const unsigned long int msg_delay = 2000;
+const unsigned long int msg_delay = 1000;
 unsigned long int prev_time = 0;
 uint8_t sigfox_delay = 0;
 
@@ -124,26 +124,26 @@ void sendSigfoxPacket() {
   }
 
   //send readable data to debug port else to wisol module
-  if (sigfox_delay < 18) {
+  if (sigfox_delay < 40) {
     gps.dateTimeFormat(time, gps.g_time, ':');
     gps.dateTimeFormat(date, gps.g_date, '-');
     gps_ns = (gps.lat_ns == 0) ? ' ' : gps.lat_ns;
     gps_ew = (gps.lng_ew == 0) ? ' ' : gps.lng_ew;
     //mic and ldr
-    sprintf(buffer, "\r\nMIC: %04d, LDR : %04d\r\n", mic_val, ldr_output);
+    sprintf(buffer, "\n\rMIC: %04d, LDR : %04d", mic_val, ldr_output);
     Serial.println(buffer);
 
     //SHT30
-    sprintf(buffer, "SHT30 -> C : %d, F : %d, H : %d\r\n", cTemp, fTemp, humidity);
+    sprintf(buffer, "SHT30 -> C : %d, F : %d, H : %d", cTemp, fTemp, humidity);
     Serial.println(buffer);
 
     //LIS2DH12
-    sprintf(buffer, "LIS2DH12 -> X: %03d,  Y: %03d, Z: %0d\r\n", acc.x, acc.y, acc.z);
+    sprintf(buffer, "LIS2DH12 -> X: %03d,  Y: %03d, Z: %0d", acc.x, acc.y, acc.z);
     Serial.println(buffer);
 
     //L70R
     sprintf(buffer,
-            "L70R -> TIME: %s,  LAT: %.5f%c, LNG : %.5f%c, SPEED : %d, DATE : %s\r\n",
+            "L70R -> TIME: %s,  LAT: %.5f%c, LNG : %.5f%c, SPEED : %d, DATE : %s",
             time, (float) (gps.lat / 100000.0), gps_ns,
             (float) (gps.lng / 100000.0), gps_ew, gps.speed, date);
     Serial.println(buffer);

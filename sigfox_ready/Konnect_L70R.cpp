@@ -43,7 +43,7 @@ uint8_t L70R::parse(char *nmea, uint16_t len) {
   *(p_gps + size + 1) = 0;
 
   if (strstr((char*) gpsbuf, "$GPRMC") && strstr((char*) gpsbuf, "*")) {
-    Serial.println(gpsbuf);
+    //Serial.println(gpsbuf);
 
     //strtok((char*) gpsbuf, ","); //nmea msg
     //p_gps = &gpsbuf[0];
