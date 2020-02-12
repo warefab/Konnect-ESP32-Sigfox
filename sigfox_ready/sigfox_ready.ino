@@ -1,5 +1,5 @@
 /*
-   SSend sensors data to sigfox
+   Send sensors data to sigfox
    Konnect ESP32-Sigfox dev board
 
    @author @author https://www.warefab.com
