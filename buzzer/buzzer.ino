@@ -15,7 +15,10 @@
 #define BUZZER_PIN 32
 #define BUZZER_CHANNEL 0
 
-Adafruit_SSD1306 display(-1);
+#define SCREEN_WIDTH 128 // OLED display width, in pixels
+#define SCREEN_HEIGHT 64 // OLED display height, in pixels
+
+Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
 
 void setup() {
   Wire.begin();

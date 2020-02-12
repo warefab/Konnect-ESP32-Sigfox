@@ -1,45 +1,19 @@
-#define RXD1 14
-#define TXD1 27
+#include <stdio.h>
 
-enum Message {
-  DV_VERSION, 
-  DV_ID,
-  DV_PAC,
-  DV_TOKEN
-};
+#include "Konnect_Sigfox.h"
 
-uint8_t msg[12] = "warefab";
 const char *at_messages[] = {"AT$I=0", "AT$I=10", "AT$I=11", "AT$SF="};
 //char packet[] = "01c9a838321e2e01091b3046";
 
-const unsigned long int msg_delay = 20000;
-unsigned long int prev_time = 0;
-
-void setup() {
-  // put your setup code here, to run once:
-  Serial.begin(115200);
+void Sigfox::init(){
   Serial1.begin(9600, SERIAL_8N1, RXD1, TXD1);
-  Serial.println("Sigfox Module Test");
   delay(100);
   checkIDPAC(DV_VERSION);
   checkIDPAC(DV_ID);
   checkIDPAC(DV_PAC);
 }
 
-void loop() {
-  if(millis() - prev_time >= msg_delay){
-    Serial.println("Sending Packets...");
-    sendMessage(msg);
-    //sendSigfoxMessage(packet);
-    prev_time = millis();
-  }
-  while (Serial1.available()) {
-    Serial.print((char)Serial1.read());
-  }
-  delay(1); //yield
-}
-
-void checkIDPAC(enum Message type_) {
+void Sigfox::checkIDPAC(enum Message type_) {
   if (type_ == DV_VERSION) { //version
     Serial.print("\nVER - ");
   } else if (type_ == DV_ID) { //id
@@ -49,13 +23,13 @@ void checkIDPAC(enum Message type_) {
   }
   Serial1.print(at_messages[type_]);
   Serial1.print("\r\n");
-  delay(200);
+  delay(500);
   while (Serial1.available()) {
     Serial.print((char)Serial1.read());
   }
 }
 
-void sendMessage(uint8_t msg[]) {
+void Sigfox::sendMessage(uint8_t msg[]) {
 
   String status = "";
   char output[2];
@@ -76,7 +50,7 @@ void sendMessage(uint8_t msg[]) {
   Serial1.print("\r\n");
 }
 
-void sendSigfoxMessage(char *data) {
+void Sigfox::sendSigfoxMessage(char *data) {
   Serial1.print(at_messages[DV_TOKEN]);
   while (*data) {
     Serial1.print(*data++);

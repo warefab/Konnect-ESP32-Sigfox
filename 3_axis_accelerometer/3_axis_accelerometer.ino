@@ -13,9 +13,14 @@
 #include "lis2dh12.h"
 
 Lis2dh12 acc;
-Adafruit_SSD1306 display(-1);
+
+#define SCREEN_WIDTH 128 // OLED display width, in pixels
+#define SCREEN_HEIGHT 64 // OLED display height, in pixels
+
+Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
 
 void setup(){
+  Serial.begin(115200);
   Wire.begin();
   //init oled
   display.begin(SSD1306_SWITCHCAPVCC, 0x3c);
@@ -37,6 +42,7 @@ uint8_t getAccData(){
   if (state == 0x33) {
     acc.readXYZ();
   }else{
+    Serial.println("no acc");
     return 0;
   }
   delay(10);
