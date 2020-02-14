@@ -33,7 +33,7 @@ void Lis2dh12::init(uint8_t addr) {
   if (state == 0x33) {
     int1Setup(INT1_CFG);
     setMode(HIGH_RES);
-    setScale(_16g);
+    setScale(_8g);
     setODR(ODR_10Hz);
     enableAxes(X_axis);
     enableAxes(Y_axis);
