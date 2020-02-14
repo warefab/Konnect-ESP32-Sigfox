@@ -66,6 +66,7 @@ void taskBlink(void *pvParameters) {
     Serial.println("On");
     vTaskDelay(200);
     digitalWrite(LED, LOW);
+    Serial.println("Off");
     vTaskDelay(800);
   }
 }
